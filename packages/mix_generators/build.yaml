@@ -8,7 +8,7 @@ builders:
   generators:
     target: ":mix_generators" # Generator name
     import: "package:mix_generators/mix_generators.dart"
-    builder_factories: ["generateJsonMethods"] # Builder name(BuilderOption) this is a definition
+    builder_factories: ["generateJsonMethods", "generateDecorator"] # Builder name(BuilderOption) this is a definition
     build_extensions: { ".dart": [".g.part"] }
     auto_apply: dependents
     build_to: cache

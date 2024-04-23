@@ -3,12 +3,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mix_annotations/mix_annotations.dart';
 
 import '../attributes/scalars/scalar_util.dart';
 import '../core/attribute.dart';
 import '../core/decorator.dart';
 import '../factory/mix_provider_data.dart';
 
+part 'align_widget_decorator.g.dart';
+
+@decorator
 class AlignDecoratorSpec extends DecoratorSpec<AlignDecoratorSpec> {
   final AlignmentGeometry? alignment;
   final double? widthFactor;

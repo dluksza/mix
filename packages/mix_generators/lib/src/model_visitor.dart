@@ -6,12 +6,18 @@ class ModelVisitor extends SimpleElementVisitor<void> {
 // Step 2
   String className = '';
   Map<String, dynamic> fields = {};
+  Map<String, dynamic> constructorFields = {};
 
 // Step 3
   @override
   void visitConstructorElement(ConstructorElement element) {
     final String returnType = element.returnType.toString();
-    className = returnType.replaceAll("*", ""); // ClassName* -> ClassName
+    className = returnType.replaceAll("*", "");
+
+    for (var parameter in element.parameters) {
+      constructorFields[parameter.name] =
+          parameter.type.toString().replaceAll("*", "");
+    }
   }
 
 // Step 4
@@ -25,6 +31,5 @@ class ModelVisitor extends SimpleElementVisitor<void> {
      */
     String elementType = element.type.toString().replaceAll("*", "");
     fields[element.name] = elementType;
-
   }
 }
