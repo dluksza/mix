@@ -11,12 +11,17 @@ dependencies:
   meta: ^1.8.0
   flutter:
     sdk: flutter
+  mix_annotations:
+    path: packages/mix_annotations/
 
 dev_dependencies:
   flutter_lints: 2.0.3
   flutter_test:
     sdk: flutter
   dart_code_metrics_presets: 2.9.0
+  build_runner: 
+  mix_generators:
+    path: packages/mix_generators/
 
 flutter:
   assets:
