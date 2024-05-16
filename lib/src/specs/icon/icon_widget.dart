@@ -12,7 +12,7 @@ class StyledIcon extends StyledWidget {
     super.key,
     super.inherit = true,
     this.textDirection,
-    super.orderOfDecorators = const [],
+    super.orderOfWidgetModifiers = const [],
   });
 
   final IconData? icon;
@@ -86,7 +86,7 @@ class AnimatedStyledIcon extends StyledWidget {
     required this.progress,
     super.inherit,
     this.textDirection,
-    super.orderOfDecorators = const [],
+    super.orderOfWidgetModifiers = const [],
   });
 
   final AnimatedIconData icon;

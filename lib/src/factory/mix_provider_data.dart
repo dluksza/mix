@@ -63,7 +63,7 @@ class MixData with Comparable {
   @internal
   MixData toInheritable() {
     final inheritableAttributes = _attributes.values.where(
-      (attr) => attr is! DecoratorAttribute,
+      (attr) => attr is! WidgetModifierAttribute,
     );
 
     return copyWith(attributes: AttributeMap(inheritableAttributes));

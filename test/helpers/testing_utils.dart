@@ -308,7 +308,7 @@ class UtilityTestDtoAttribute<T extends Dto<V>, V>
 }
 
 class CustomWidgetDecoratorSpec
-    extends DecoratorSpec<CustomWidgetDecoratorSpec> {
+    extends WidgetModifierSpec<CustomWidgetDecoratorSpec> {
   final bool value;
   const CustomWidgetDecoratorSpec(this.value);
 
@@ -333,7 +333,7 @@ class CustomWidgetDecoratorSpec
   }
 }
 
-class CustomDecoratorAttribute extends DecoratorAttribute<
+class CustomDecoratorAttribute extends WidgetModifierAttribute<
     CustomDecoratorAttribute, CustomWidgetDecoratorSpec> {
   final bool? value;
   const CustomDecoratorAttribute([this.value = true]);

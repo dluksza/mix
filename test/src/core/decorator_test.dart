@@ -10,7 +10,7 @@ import '../../helpers/testing_utils.dart';
 void main() {
   group('DecoratorSpec', () {
     test('lerpValue should return null when both begin and end are null', () {
-      expect(DecoratorSpec.lerpValue(null, null, 0.5), isNull);
+      expect(WidgetModifierSpec.lerpValue(null, null, 0.5), isNull);
     });
 
     test(
@@ -19,11 +19,11 @@ void main() {
       const begin = _TestDecoratorSpec(1);
       const end = _TestDecoratorSpec(2);
       expect(
-        DecoratorSpec.lerpValue(begin, end, 0.5),
+        WidgetModifierSpec.lerpValue(begin, end, 0.5),
         isA<_TestDecoratorSpec>(),
       );
       expect(
-        (DecoratorSpec.lerpValue(begin, end, 0.5) as _TestDecoratorSpec?)
+        (WidgetModifierSpec.lerpValue(begin, end, 0.5) as _TestDecoratorSpec?)
             ?.value,
         1.5,
       );
@@ -40,7 +40,7 @@ void main() {
   });
 }
 
-class _TestDecoratorSpec extends DecoratorSpec<_TestDecoratorSpec> {
+class _TestDecoratorSpec extends WidgetModifierSpec<_TestDecoratorSpec> {
   final double value;
   const _TestDecoratorSpec(this.value);
 
@@ -65,8 +65,8 @@ class _TestDecoratorSpec extends DecoratorSpec<_TestDecoratorSpec> {
   }
 }
 
-class _TestDecoratorAttribute
-    extends DecoratorAttribute<_TestDecoratorAttribute, _TestDecoratorSpec> {
+class _TestDecoratorAttribute extends WidgetModifierAttribute<
+    _TestDecoratorAttribute, _TestDecoratorSpec> {
   final double value;
   const _TestDecoratorAttribute(this.value);
 

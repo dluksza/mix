@@ -79,36 +79,36 @@ class SpreadFunctionParams<ParamT, ReturnT> {
 }
 
 /// Conditionally applies decorators to [child] based on the presence of
-/// [DecoratorAttribute] in [mix].
+/// [WidgetModifierAttribute] in [mix].
 ///
-/// If [mix] contains [DecoratorAttribute], this returns [child] wrapped in a
-/// [RenderDecorators] widget. The order of decorators is determined by
-/// [orderOfDecorators].
+/// If [mix] contains [WidgetModifierAttribute], this returns [child] wrapped in a
+/// [RenderWidgetModifiers] widget. The order of decorators is determined by
+/// [orderOfWidgetModifiers].
 ///
-/// If [mix] does not contain [DecoratorAttribute], this returns [child]
+/// If [mix] does not contain [WidgetModifierAttribute], this returns [child]
 /// unmodified.
 ///
 /// Example:
 ///
 /// ```dart
-/// Widget myWidget = shouldApplyDecorators(
+/// Widget myWidget = shouldApplyWidgetModifiers(
 ///   mix: myMix,
 ///   child: Text('Hello'),
-///   orderOfDecorators: [BorderDecorator, ShadowDecorator],
+///   orderOfWidgetModifiers: [BorderWidgetModifier, ShadowWidgetModifier],
 /// );
 /// ```
-Widget shouldApplyDecorators({
+Widget shouldApplyWidgetModifiers({
   required MixData mix,
   required Widget child,
-  List<Type> orderOfDecorators = const [],
+  List<Type> orderOfWidgetModifiers = const [],
 }) {
-  final hasDecorators = mix.contains<DecoratorAttribute>();
+  final hasWidgetModifiers = mix.contains<WidgetModifierAttribute>();
 
-  if (!hasDecorators) return child;
+  if (!hasWidgetModifiers) return child;
 
-  return RenderDecorators(
+  return RenderWidgetModifiers(
     mix: mix,
-    orderOfDecorators: orderOfDecorators,
+    orderOfWidgetModifiers: orderOfWidgetModifiers,
     child: child,
   );
 }

@@ -20,7 +20,7 @@ abstract class StyledWidget extends StatelessWidget {
     Style? style,
     super.key,
     this.inherit = false,
-    required this.orderOfDecorators,
+    required this.orderOfWidgetModifiers,
   }) : style = style ?? const Style.empty();
 
   /// The style to apply to the widget.
@@ -35,7 +35,7 @@ abstract class StyledWidget extends StatelessWidget {
   /// [StyledWidget] ancestor in the widget tree. Defaults to false.
   final bool inherit;
 
-  final List<Type> orderOfDecorators;
+  final List<Type> orderOfWidgetModifiers;
 
   /// Applies a mix of inherited and local styles to the widget.
   ///
@@ -55,25 +55,25 @@ abstract class StyledWidget extends StatelessWidget {
 
     return MixProvider(
       data: mergedMix,
-      child: applyDecorators(
+      child: applyWidgetModifiers(
         mergedMix,
         Builder(builder: (newContext) => builder(newContext)),
       ),
     );
   }
 
-  Widget applyDecorators(MixData mix, Widget child) {
+  Widget applyWidgetModifiers(MixData mix, Widget child) {
     return mix.isAnimated
-        ? RenderAnimatedDecorators(
+        ? RenderAnimatedWidgetModifiers(
             mix: mix,
-            orderOfDecorators: orderOfDecorators,
+            orderOfWidgetModifiers: orderOfWidgetModifiers,
             duration: mix.animation!.duration,
             curve: mix.animation!.curve,
             child: child,
           )
-        : RenderDecorators(
+        : RenderWidgetModifiers(
             mix: mix,
-            orderOfDecorators: orderOfDecorators,
+            orderOfWidgetModifiers: orderOfWidgetModifiers,
             child: child,
           );
   }
@@ -93,7 +93,7 @@ class SpecBuilder extends StyledWidget {
     required this.builder,
     super.style,
     super.inherit,
-    super.orderOfDecorators = const [],
+    super.orderOfWidgetModifiers = const [],
     super.key,
   });
 

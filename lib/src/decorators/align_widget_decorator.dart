@@ -9,20 +9,21 @@ import '../core/attribute.dart';
 import '../core/decorator.dart';
 import '../factory/mix_provider_data.dart';
 
-class AlignDecoratorSpec extends DecoratorSpec<AlignDecoratorSpec> {
+class AlignWidgetModifierSpec
+    extends WidgetModifierSpec<AlignWidgetModifierSpec> {
   final AlignmentGeometry? alignment;
   final double? widthFactor;
   final double? heightFactor;
 
-  const AlignDecoratorSpec({
+  const AlignWidgetModifierSpec({
     this.alignment,
     this.widthFactor,
     this.heightFactor,
   });
 
   @override
-  AlignDecoratorSpec lerp(AlignDecoratorSpec? other, double t) {
-    return AlignDecoratorSpec(
+  AlignWidgetModifierSpec lerp(AlignWidgetModifierSpec? other, double t) {
+    return AlignWidgetModifierSpec(
       alignment: AlignmentGeometry.lerp(alignment, other?.alignment, t),
       widthFactor: lerpDouble(widthFactor, other?.widthFactor, t),
       heightFactor: lerpDouble(heightFactor, other?.heightFactor, t),
@@ -30,12 +31,12 @@ class AlignDecoratorSpec extends DecoratorSpec<AlignDecoratorSpec> {
   }
 
   @override
-  AlignDecoratorSpec copyWith({
+  AlignWidgetModifierSpec copyWith({
     AlignmentGeometry? alignment,
     double? widthFactor,
     double? heightFactor,
   }) {
-    return AlignDecoratorSpec(
+    return AlignWidgetModifierSpec(
       alignment: alignment ?? this.alignment,
       widthFactor: widthFactor ?? this.widthFactor,
       heightFactor: heightFactor ?? this.heightFactor,
@@ -56,21 +57,21 @@ class AlignDecoratorSpec extends DecoratorSpec<AlignDecoratorSpec> {
   }
 }
 
-class AlignDecoratorAttribute
-    extends DecoratorAttribute<AlignDecoratorAttribute, AlignDecoratorSpec> {
+class AlignWidgetModifierAttribute extends WidgetModifierAttribute<
+    AlignWidgetModifierAttribute, AlignWidgetModifierSpec> {
   final AlignmentGeometry? alignment;
   final double? widthFactor;
   final double? heightFactor;
 
-  const AlignDecoratorAttribute({
+  const AlignWidgetModifierAttribute({
     this.alignment,
     this.widthFactor,
     this.heightFactor,
   });
 
   @override
-  AlignDecoratorSpec resolve(MixData mix) {
-    return AlignDecoratorSpec(
+  AlignWidgetModifierSpec resolve(MixData mix) {
+    return AlignWidgetModifierSpec(
       alignment: alignment,
       widthFactor: widthFactor,
       heightFactor: heightFactor,
@@ -78,8 +79,8 @@ class AlignDecoratorAttribute
   }
 
   @override
-  AlignDecoratorAttribute merge(AlignDecoratorAttribute? other) {
-    return AlignDecoratorAttribute(
+  AlignWidgetModifierAttribute merge(AlignWidgetModifierAttribute? other) {
+    return AlignWidgetModifierAttribute(
       alignment: other?.alignment ?? alignment,
       widthFactor: other?.widthFactor ?? widthFactor,
       heightFactor: other?.heightFactor ?? heightFactor,
@@ -91,7 +92,7 @@ class AlignDecoratorAttribute
 }
 
 class AlignWidgetUtility<T extends Attribute>
-    extends MixUtility<T, AlignDecoratorAttribute> {
+    extends MixUtility<T, AlignWidgetModifierAttribute> {
   const AlignWidgetUtility(super.builder);
   T call({
     AlignmentGeometry? alignment,
@@ -99,7 +100,7 @@ class AlignWidgetUtility<T extends Attribute>
     double? heightFactor,
   }) {
     return builder(
-      AlignDecoratorAttribute(
+      AlignWidgetModifierAttribute(
         alignment: alignment,
         widthFactor: widthFactor,
         heightFactor: heightFactor,

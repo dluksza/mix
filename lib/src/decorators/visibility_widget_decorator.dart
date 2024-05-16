@@ -8,20 +8,22 @@ import '../core/decorator.dart';
 import '../factory/mix_provider_data.dart';
 import '../helpers/lerp_helpers.dart';
 
-class VisibilityDecoratorSpec extends DecoratorSpec<VisibilityDecoratorSpec> {
+class VisibilityWidgetModifierSpec
+    extends WidgetModifierSpec<VisibilityWidgetModifierSpec> {
   final bool visible;
-  const VisibilityDecoratorSpec(this.visible);
+  const VisibilityWidgetModifierSpec(this.visible);
 
   @override
-  VisibilityDecoratorSpec lerp(VisibilityDecoratorSpec? other, double t) {
-    return VisibilityDecoratorSpec(
+  VisibilityWidgetModifierSpec lerp(
+      VisibilityWidgetModifierSpec? other, double t) {
+    return VisibilityWidgetModifierSpec(
       lerpSnap(visible, other?.visible, t) ?? visible,
     );
   }
 
   @override
-  VisibilityDecoratorSpec copyWith({bool? visible}) {
-    return VisibilityDecoratorSpec(visible ?? this.visible);
+  VisibilityWidgetModifierSpec copyWith({bool? visible}) {
+    return VisibilityWidgetModifierSpec(visible ?? this.visible);
   }
 
   @override
@@ -33,19 +35,20 @@ class VisibilityDecoratorSpec extends DecoratorSpec<VisibilityDecoratorSpec> {
   }
 }
 
-class VisibilityDecoratorAttribute extends DecoratorAttribute<
-    VisibilityDecoratorAttribute, VisibilityDecoratorSpec> {
+class VisibilityWidgetModifierAttribute extends WidgetModifierAttribute<
+    VisibilityWidgetModifierAttribute, VisibilityWidgetModifierSpec> {
   final bool visible;
-  const VisibilityDecoratorAttribute(this.visible);
+  const VisibilityWidgetModifierAttribute(this.visible);
 
   @override
-  VisibilityDecoratorAttribute merge(VisibilityDecoratorAttribute? other) {
-    return VisibilityDecoratorAttribute(other?.visible ?? visible);
+  VisibilityWidgetModifierAttribute merge(
+      VisibilityWidgetModifierAttribute? other) {
+    return VisibilityWidgetModifierAttribute(other?.visible ?? visible);
   }
 
   @override
-  VisibilityDecoratorSpec resolve(MixData mix) {
-    return VisibilityDecoratorSpec(visible);
+  VisibilityWidgetModifierSpec resolve(MixData mix) {
+    return VisibilityWidgetModifierSpec(visible);
   }
 
   @override
@@ -53,10 +56,10 @@ class VisibilityDecoratorAttribute extends DecoratorAttribute<
 }
 
 class VisibilityUtility<T extends Attribute>
-    extends MixUtility<T, VisibilityDecoratorAttribute> {
+    extends MixUtility<T, VisibilityWidgetModifierAttribute> {
   const VisibilityUtility(super.builder);
-  T on() => builder(const VisibilityDecoratorAttribute(true));
-  T off() => builder(const VisibilityDecoratorAttribute(false));
+  T on() => builder(const VisibilityWidgetModifierAttribute(true));
+  T off() => builder(const VisibilityWidgetModifierAttribute(false));
 
-  T call(bool value) => builder(VisibilityDecoratorAttribute(value));
+  T call(bool value) => builder(VisibilityWidgetModifierAttribute(value));
 }

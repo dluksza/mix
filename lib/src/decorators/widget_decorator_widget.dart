@@ -17,73 +17,73 @@ import 'visibility_widget_decorator.dart';
 
 // Default order of decorators and their logic:
 const _defaultOrder = [
-  // 1. VisibilityDecorator: Controls overall visibility. If the widget is set to be invisible,
+  // 1. VisibilityWidgetModifier: Controls overall visibility. If the widget is set to be invisible,
   // none of the subsequent decorations are processed, providing an early exit and optimizing performance.
-  VisibilityDecoratorAttribute,
+  VisibilityWidgetModifierAttribute,
 
-  // 2. SizedBoxDecorator: Explicitly sets the size of the widget before any other transformations are applied.
+  // 2. SizedBoxWidgetModifier: Explicitly sets the size of the widget before any other transformations are applied.
   // This ensures that the widget occupies a predetermined space, which is crucial for layouts that require exact dimensions.
-  SizedBoxDecoratorAttribute,
+  SizedBoxWidgetModifierAttribute,
 
-  // 3. FractionallySizedBoxDecorator: Adjusts the widget's size relative to its parent's size,
+  // 3. FractionallySizedBoxWidgetModifier: Adjusts the widget's size relative to its parent's size,
   // allowing for responsive layouts that scale with the parent widget. This decorator is applied after
   // explicit sizing to refine the widget's dimensions based on available space.
-  FractionallySizedBoxDecoratorAttribute,
+  FractionallySizedBoxWidgetModifierAttribute,
 
-  // 4. AlignDecorator: Aligns the widget within its allocated space, which is especially important
+  // 4. AlignWidgetModifier: Aligns the widget within its allocated space, which is especially important
   // for positioning the widget correctly before applying any transformations that could affect its position.
   // Alignment is based on the size constraints established by previous decorators.
-  AlignDecoratorAttribute,
+  AlignWidgetModifierAttribute,
 
-  // 5. IntrinsicHeightDecorator: Adjusts the widget's height to fit its child's intrinsic height,
+  // 5. IntrinsicHeightWidgetModifier: Adjusts the widget's height to fit its child's intrinsic height,
   // ensuring that the widget does not force its children to conform to an unnatural height. This is particularly
   // useful for widgets that should size themselves based on content.
-  IntrinsicHeightDecoratorAttribute,
+  IntrinsicHeightWidgetModifierAttribute,
 
-  // 6. IntrinsicWidthDecorator: Similar to the IntrinsicHeightDecorator, this adjusts the widget's width
+  // 6. IntrinsicWidthWidgetModifier: Similar to the IntrinsicHeightWidgetModifier, this adjusts the widget's width
   // to its child's intrinsic width. This decorator allows for content-driven width adjustments, making it ideal
   // for widgets that need to wrap their content tightly.
-  IntrinsicWidthDecoratorAttribute,
+  IntrinsicWidthWidgetModifierAttribute,
 
-  // 7. AspectRatioDecorator: Maintains the widget's aspect ratio after sizing adjustments.
+  // 7. AspectRatioWidgetModifier: Maintains the widget's aspect ratio after sizing adjustments.
   // This decorator ensures that the widget scales correctly within its given aspect ratio constraints,
   // which is critical for preserving the visual integrity of images and other aspect-sensitive content.
-  AspectRatioDecoratorAttribute,
+  AspectRatioWidgetModifierAttribute,
 
-  // 9. TransformDecorator: Applies arbitrary transformations, such as rotation, scaling, and translation.
+  // 9. TransformWidgetModifier: Applies arbitrary transformations, such as rotation, scaling, and translation.
   // Transformations are applied after all sizing and positioning adjustments to modify the widget's appearance
   // and position in more complex ways without altering the logical layout.
-  TransformDecoratorAttribute,
+  TransformWidgetModifierAttribute,
 
-  // 10. Clip Decorators: Applies clipping in various shapes to the transformed widget, shaping the final appearance.
+  // 10. Clip WidgetModifiers: Applies clipping in various shapes to the transformed widget, shaping the final appearance.
   // Clipping is one of the last steps to ensure it is applied to the widget's final size, position, and transformation state.
-  ClipOvalDecoratorAttribute,
-  ClipRRectDecoratorAttribute,
-  ClipPathDecoratorAttribute,
-  ClipTriangleDecoratorAttribute,
-  ClipRectDecoratorAttribute,
+  ClipOvalWidgetModifierAttribute,
+  ClipRRectWidgetModifierAttribute,
+  ClipPathWidgetModifierAttribute,
+  ClipTriangleWidgetModifierAttribute,
+  ClipRectWidgetModifierAttribute,
 
-  // 11. OpacityDecorator: Modifies the widget's opacity as the final decoration step. Applying opacity last ensures
+  // 11. OpacityWidgetModifier: Modifies the widget's opacity as the final decoration step. Applying opacity last ensures
   // that it does not influence the layout or transformations, serving purely as a visual effect to alter the transparency
   // of the widget and its decorations.
-  OpacityDecoratorAttribute,
+  OpacityWidgetModifierAttribute,
 ];
 
-class RenderDecorators extends StatelessWidget {
-  const RenderDecorators({
+class RenderWidgetModifiers extends StatelessWidget {
+  const RenderWidgetModifiers({
     required this.mix,
     required this.child,
     super.key,
-    required this.orderOfDecorators,
+    required this.orderOfWidgetModifiers,
   });
 
   final MixData mix;
   final Widget child;
-  final List<Type> orderOfDecorators;
+  final List<Type> orderOfWidgetModifiers;
 
   @override
   Widget build(BuildContext context) {
-    final specs = resolveDecoratorSpecs(orderOfDecorators, mix);
+    final specs = resolveWidgetModifierSpecs(orderOfWidgetModifiers, mix);
 
     var current = child;
 
@@ -95,11 +95,11 @@ class RenderDecorators extends StatelessWidget {
   }
 }
 
-class RenderAnimatedDecorators extends ImplicitlyAnimatedWidget {
-  const RenderAnimatedDecorators({
+class RenderAnimatedWidgetModifiers extends ImplicitlyAnimatedWidget {
+  const RenderAnimatedWidgetModifiers({
     required this.mix,
     required this.child,
-    required this.orderOfDecorators,
+    required this.orderOfWidgetModifiers,
     super.key,
     required super.duration,
     super.curve = Curves.linear,
@@ -108,20 +108,21 @@ class RenderAnimatedDecorators extends ImplicitlyAnimatedWidget {
 
   final MixData mix;
   final Widget child;
-  final List<Type> orderOfDecorators;
+  final List<Type> orderOfWidgetModifiers;
 
   @override
-  RenderAnimatedDecoratorsState createState() =>
-      RenderAnimatedDecoratorsState();
+  RenderAnimatedWidgetModifiersState createState() =>
+      RenderAnimatedWidgetModifiersState();
 }
 
-class RenderAnimatedDecoratorsState
-    extends AnimatedWidgetBaseState<RenderAnimatedDecorators> {
-  final Map<Type, DecoratorSpecTween> _specs = {};
+class RenderAnimatedWidgetModifiersState
+    extends AnimatedWidgetBaseState<RenderAnimatedWidgetModifiers> {
+  final Map<Type, WidgetModifierSpecTween> _specs = {};
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-    final specs = resolveDecoratorSpecs(widget.orderOfDecorators, widget.mix);
+    final specs =
+        resolveWidgetModifierSpecs(widget.orderOfWidgetModifiers, widget.mix);
 
     for (final spec in specs) {
       final specType = spec.runtimeType;
@@ -130,8 +131,9 @@ class RenderAnimatedDecoratorsState
       _specs[specType] = visitor(
         previousSpec,
         spec,
-        (dynamic value) => DecoratorSpecTween(begin: value as DecoratorSpec),
-      ) as DecoratorSpecTween;
+        (dynamic value) =>
+            WidgetModifierSpecTween(begin: value as WidgetModifierSpec),
+      ) as WidgetModifierSpecTween;
     }
   }
 
@@ -148,44 +150,46 @@ class RenderAnimatedDecoratorsState
   }
 }
 
-Set<DecoratorSpec> resolveDecoratorSpecs(
-  List<Type> orderOfDecorators,
+Set<WidgetModifierSpec> resolveWidgetModifierSpecs(
+  List<Type> orderOfWidgetModifiers,
   MixData mix,
 ) {
-  final decorators = mix.whereType<DecoratorAttribute>();
+  final decorators = mix.whereType<WidgetModifierAttribute>();
 
   if (decorators.isEmpty) return {};
-  final decoratorMap = AttributeMap<DecoratorAttribute>(decorators).toMap();
+  final decoratorMap =
+      AttributeMap<WidgetModifierAttribute>(decorators).toMap();
 
-  final listOfDecorators = {
+  final listOfWidgetModifiers = {
     // Prioritize the order of decorators provided by the user.
-    ...orderOfDecorators,
+    ...orderOfWidgetModifiers,
     // Add the default order of decorators.
     ..._defaultOrder,
     // Add any remaining decorators that were not included in the order.
     ...decoratorMap.keys,
   }.toList().reversed;
 
-  final specs = <DecoratorSpec>[];
+  final specs = <WidgetModifierSpec>[];
 
-  for (final decoratorType in listOfDecorators) {
+  for (final decoratorType in listOfWidgetModifiers) {
     // Resolve the decorator and add it to the list of specs.
     final decorator = decoratorMap.remove(decoratorType);
     if (decorator == null) continue;
-    specs.add(decorator.resolve(mix) as DecoratorSpec);
+    specs.add(decorator.resolve(mix) as WidgetModifierSpec);
   }
 
   return specs.toSet();
 }
 
-class DecoratorSpecTween extends Tween<DecoratorSpec> {
+class WidgetModifierSpecTween extends Tween<WidgetModifierSpec> {
   /// Creates an [EdgeInsetsGeometry] tween.
   ///
   /// The [begin] and [end] properties may be null; the null value
-  /// is treated as an [DecoratorSpec]
-  DecoratorSpecTween({super.begin, super.end});
+  /// is treated as an [WidgetModifierSpec]
+  WidgetModifierSpecTween({super.begin, super.end});
 
   /// Returns the value this variable has at the given animation clock value.
   @override
-  DecoratorSpec lerp(double t) => DecoratorSpec.lerpValue(begin, end, t)!;
+  WidgetModifierSpec lerp(double t) =>
+      WidgetModifierSpec.lerpValue(begin, end, t)!;
 }

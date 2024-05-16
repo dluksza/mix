@@ -20,7 +20,7 @@ class StyledImage extends StyledWidget {
     this.isAntiAlias = false,
     this.matchTextDirection = false,
     this.opacity,
-    super.orderOfDecorators = const [],
+    super.orderOfWidgetModifiers = const [],
   });
 
   final ImageProvider<Object> image;

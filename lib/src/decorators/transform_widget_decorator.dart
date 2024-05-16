@@ -7,25 +7,27 @@ import '../core/attribute.dart';
 import '../core/decorator.dart';
 import '../factory/mix_provider_data.dart';
 
-class TransformDecoratorSpec extends DecoratorSpec<TransformDecoratorSpec> {
+class TransformWidgetModifierSpec
+    extends WidgetModifierSpec<TransformWidgetModifierSpec> {
   final Matrix4? transform;
   final Alignment? alignment;
 
-  const TransformDecoratorSpec({this.transform, this.alignment});
+  const TransformWidgetModifierSpec({this.transform, this.alignment});
 
   @override
-  TransformDecoratorSpec lerp(TransformDecoratorSpec? other, double t) {
-    return TransformDecoratorSpec(
+  TransformWidgetModifierSpec lerp(
+      TransformWidgetModifierSpec? other, double t) {
+    return TransformWidgetModifierSpec(
       transform: Matrix4Tween(begin: transform, end: other?.transform).lerp(t),
     );
   }
 
   @override
-  TransformDecoratorSpec copyWith({
+  TransformWidgetModifierSpec copyWith({
     Matrix4? transform,
     Alignment? alignment,
   }) {
-    return TransformDecoratorSpec(
+    return TransformWidgetModifierSpec(
       transform: transform ?? this.transform,
       alignment: alignment ?? this.alignment,
     );
@@ -44,16 +46,17 @@ class TransformDecoratorSpec extends DecoratorSpec<TransformDecoratorSpec> {
   }
 }
 
-class TransformDecoratorAttribute extends DecoratorAttribute<
-    TransformDecoratorAttribute, TransformDecoratorSpec> {
+class TransformWidgetModifierAttribute extends WidgetModifierAttribute<
+    TransformWidgetModifierAttribute, TransformWidgetModifierSpec> {
   final Matrix4? transform;
   final Alignment? alignment;
 
-  const TransformDecoratorAttribute({this.transform, this.alignment});
+  const TransformWidgetModifierAttribute({this.transform, this.alignment});
 
   @override
-  TransformDecoratorAttribute merge(TransformDecoratorAttribute? other) {
-    return TransformDecoratorAttribute(
+  TransformWidgetModifierAttribute merge(
+      TransformWidgetModifierAttribute? other) {
+    return TransformWidgetModifierAttribute(
       transform:
           other?.transform?.multiplied(transform ?? Matrix4.identity()) ??
               transform,
@@ -62,8 +65,8 @@ class TransformDecoratorAttribute extends DecoratorAttribute<
   }
 
   @override
-  TransformDecoratorSpec resolve(MixData mix) {
-    return TransformDecoratorSpec(
+  TransformWidgetModifierSpec resolve(MixData mix) {
+    return TransformWidgetModifierSpec(
       transform: transform,
       alignment: alignment,
     );
@@ -74,11 +77,11 @@ class TransformDecoratorAttribute extends DecoratorAttribute<
 }
 
 class TransformUtility<T extends Attribute>
-    extends MixUtility<T, TransformDecoratorAttribute> {
+    extends MixUtility<T, TransformWidgetModifierAttribute> {
   const TransformUtility(super.builder);
 
   T _flip(bool x, bool y) => builder(
-        TransformDecoratorAttribute(
+        TransformWidgetModifierAttribute(
           transform: Matrix4.diagonal3Values(
             x ? -1.0 : 1.0,
             y ? -1.0 : 1.0,
@@ -92,17 +95,17 @@ class TransformUtility<T extends Attribute>
   T flipY() => _flip(false, true);
 
   T call(Matrix4 value) =>
-      builder(TransformDecoratorAttribute(transform: value));
+      builder(TransformWidgetModifierAttribute(transform: value));
 
   T scale(double value) => builder(
-        TransformDecoratorAttribute(
+        TransformWidgetModifierAttribute(
           transform: Matrix4.diagonal3Values(value, value, 1.0),
           alignment: Alignment.center,
         ),
       );
 
   T rotate(double value) => builder(
-        TransformDecoratorAttribute(
+        TransformWidgetModifierAttribute(
           transform: Matrix4.rotationZ(value),
           alignment: Alignment.center,
         ),

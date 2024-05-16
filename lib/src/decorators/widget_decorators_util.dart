@@ -13,7 +13,7 @@ import 'sized_box_widget_decorator.dart';
 import 'transform_widget_decorator.dart';
 import 'visibility_widget_decorator.dart';
 
-class WithDecoratorUtility {
+class WithWidgetModifierUtility {
   late final intrinsicWidth =
       const IntrinsicWidthWidgetUtility(MixUtility.selfBuilder);
   late final intrinsicHeight =
@@ -36,10 +36,12 @@ class WithDecoratorUtility {
   late final scale = transform.scale;
   late final align = const AlignWidgetUtility(MixUtility.selfBuilder);
   late final fractionallySizedBox =
-      const FractionallySizedBoxDecoratorUtility(MixUtility.selfBuilder);
-  late final sizedBox = const SizedBoxDecoratorUtility(MixUtility.selfBuilder);
-  late final padding = SpacingUtility(PaddingDecoratorAttribute.new);
+      const FractionallySizedBoxWidgetModifierUtility(MixUtility.selfBuilder);
+  late final sizedBox =
+      const SizedBoxWidgetModifierUtility(MixUtility.selfBuilder);
+  late final padding = SpacingUtility(PaddingWidgetModifierAttribute.new);
 
-  late final _flexible = const FlexibleDecoratorUtility(MixUtility.selfBuilder);
-  WithDecoratorUtility();
+  late final _flexible =
+      const FlexibleWidgetModifierUtility(MixUtility.selfBuilder);
+  WithWidgetModifierUtility();
 }

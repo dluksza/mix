@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import '../factory/mix_provider_data.dart';
 import 'attribute.dart';
 
-abstract class DecoratorSpec<Self extends DecoratorSpec<Self>>
+abstract class WidgetModifierSpec<Self extends WidgetModifierSpec<Self>>
     extends Spec<Self> {
-  const DecoratorSpec();
+  const WidgetModifierSpec();
 
-  static DecoratorSpec? lerpValue(
-    DecoratorSpec? begin,
-    DecoratorSpec? end,
+  static WidgetModifierSpec? lerpValue(
+    WidgetModifierSpec? begin,
+    WidgetModifierSpec? end,
     double t,
   ) {
     if (begin != null && end != null) {
       assert(
         begin.runtimeType == end.runtimeType,
-        'You can only lerp the same type of DecoratorSpec',
+        'You can only lerp the same type of WidgetModifierSpec',
       );
 
-      return begin.lerp(end, t) as DecoratorSpec?;
+      return begin.lerp(end, t) as WidgetModifierSpec?;
     }
 
     return begin ?? end;
@@ -27,9 +27,10 @@ abstract class DecoratorSpec<Self extends DecoratorSpec<Self>>
   Widget build(Widget child);
 }
 
-abstract class DecoratorAttribute<Self extends DecoratorAttribute<Self, Value>,
-    Value extends DecoratorSpec<Value>> extends SpecAttribute<Value> {
-  const DecoratorAttribute();
+abstract class WidgetModifierAttribute<
+    Self extends WidgetModifierAttribute<Self, Value>,
+    Value extends WidgetModifierSpec<Value>> extends SpecAttribute<Value> {
+  const WidgetModifierAttribute();
 
   @override
   Value resolve(MixData mix);

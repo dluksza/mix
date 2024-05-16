@@ -9,25 +9,25 @@ import '../core/attribute.dart';
 import '../core/decorator.dart';
 import '../factory/mix_provider_data.dart';
 
-class FractionallySizedBoxDecoratorSpec
-    extends DecoratorSpec<FractionallySizedBoxDecoratorSpec> {
+class FractionallySizedBoxWidgetModifierSpec
+    extends WidgetModifierSpec<FractionallySizedBoxWidgetModifierSpec> {
   final double? widthFactor;
   final double? heightFactor;
   final AlignmentGeometry? alignment;
 
-  const FractionallySizedBoxDecoratorSpec({
+  const FractionallySizedBoxWidgetModifierSpec({
     this.widthFactor,
     this.heightFactor,
     this.alignment,
   });
 
   @override
-  FractionallySizedBoxDecoratorSpec copyWith({
+  FractionallySizedBoxWidgetModifierSpec copyWith({
     double? widthFactor,
     double? heightFactor,
     AlignmentGeometry? alignment,
   }) {
-    return FractionallySizedBoxDecoratorSpec(
+    return FractionallySizedBoxWidgetModifierSpec(
       widthFactor: widthFactor ?? this.widthFactor,
       heightFactor: heightFactor ?? this.heightFactor,
       alignment: alignment ?? this.alignment,
@@ -35,11 +35,11 @@ class FractionallySizedBoxDecoratorSpec
   }
 
   @override
-  FractionallySizedBoxDecoratorSpec lerp(
-    FractionallySizedBoxDecoratorSpec? other,
+  FractionallySizedBoxWidgetModifierSpec lerp(
+    FractionallySizedBoxWidgetModifierSpec? other,
     double t,
   ) {
-    return FractionallySizedBoxDecoratorSpec(
+    return FractionallySizedBoxWidgetModifierSpec(
       widthFactor: lerpDouble(widthFactor, other?.widthFactor, t),
       heightFactor: lerpDouble(heightFactor, other?.heightFactor, t),
       alignment: AlignmentGeometry.lerp(alignment, other?.alignment, t),
@@ -60,23 +60,24 @@ class FractionallySizedBoxDecoratorSpec
   }
 }
 
-class FractionallySizedBoxDecoratorAttribute extends DecoratorAttribute<
-    FractionallySizedBoxDecoratorAttribute, FractionallySizedBoxDecoratorSpec> {
+class FractionallySizedBoxWidgetModifierAttribute
+    extends WidgetModifierAttribute<FractionallySizedBoxWidgetModifierAttribute,
+        FractionallySizedBoxWidgetModifierSpec> {
   final double? widthFactor;
   final double? heightFactor;
   final AlignmentGeometry? alignment;
 
-  const FractionallySizedBoxDecoratorAttribute({
+  const FractionallySizedBoxWidgetModifierAttribute({
     this.widthFactor,
     this.heightFactor,
     this.alignment,
   });
 
   @override
-  FractionallySizedBoxDecoratorAttribute merge(
-    FractionallySizedBoxDecoratorAttribute? other,
+  FractionallySizedBoxWidgetModifierAttribute merge(
+    FractionallySizedBoxWidgetModifierAttribute? other,
   ) {
-    return FractionallySizedBoxDecoratorAttribute(
+    return FractionallySizedBoxWidgetModifierAttribute(
       widthFactor: other?.widthFactor ?? widthFactor,
       heightFactor: other?.heightFactor ?? heightFactor,
       alignment: other?.alignment ?? alignment,
@@ -84,8 +85,8 @@ class FractionallySizedBoxDecoratorAttribute extends DecoratorAttribute<
   }
 
   @override
-  FractionallySizedBoxDecoratorSpec resolve(MixData mix) {
-    return FractionallySizedBoxDecoratorSpec(
+  FractionallySizedBoxWidgetModifierSpec resolve(MixData mix) {
+    return FractionallySizedBoxWidgetModifierSpec(
       widthFactor: widthFactor,
       heightFactor: heightFactor,
       alignment: alignment,
@@ -96,9 +97,9 @@ class FractionallySizedBoxDecoratorAttribute extends DecoratorAttribute<
   get props => [widthFactor, heightFactor, alignment];
 }
 
-class FractionallySizedBoxDecoratorUtility<T extends Attribute>
-    extends MixUtility<T, FractionallySizedBoxDecoratorAttribute> {
-  const FractionallySizedBoxDecoratorUtility(super.builder);
+class FractionallySizedBoxWidgetModifierUtility<T extends Attribute>
+    extends MixUtility<T, FractionallySizedBoxWidgetModifierAttribute> {
+  const FractionallySizedBoxWidgetModifierUtility(super.builder);
 
   T call({
     AlignmentGeometry? alignment,
@@ -106,7 +107,7 @@ class FractionallySizedBoxDecoratorUtility<T extends Attribute>
     double? heightFactor,
   }) {
     return builder(
-      FractionallySizedBoxDecoratorAttribute(
+      FractionallySizedBoxWidgetModifierAttribute(
         widthFactor: widthFactor,
         heightFactor: heightFactor,
         alignment: alignment,
