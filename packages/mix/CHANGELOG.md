@@ -1,7 +1,3 @@
-## 1.1.2
-
-- Chore: Changed the class modifier of the Spec class for code generation.
-
 ## 1.1.1
 
 - Fixed some specs not respecting nested animated.
