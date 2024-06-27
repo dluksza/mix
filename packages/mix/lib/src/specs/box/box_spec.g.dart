@@ -43,7 +43,7 @@ base mixin _$BoxSpec on Spec<BoxSpec> {
     Clip? clipBehavior,
     double? width,
     double? height,
-    ModifiersData? modifiers,
+    WidgetModifiersData? modifiers,
     AnimatedData? animated,
   }) {
     return BoxSpec(
@@ -347,7 +347,7 @@ base class BoxSpecUtility<T extends Attribute>
   late final height = DoubleUtility((v) => only(height: v));
 
   /// Utility for defining [BoxSpecAttribute.modifiers]
-  late final modifiers = ModifiersDataUtility((v) => only(modifiers: v));
+  late final modifiers = ModifierUtility((v) => only(modifiers: v));
 
   /// Utility for defining [BoxSpecAttribute.animated]
   late final animated = AnimatedUtility((v) => only(animated: v));
@@ -370,7 +370,7 @@ base class BoxSpecUtility<T extends Attribute>
     Clip? clipBehavior,
     double? width,
     double? height,
-    ModifiersDataDto? modifiers,
+    WidgetModifiersDataDto? modifiers,
     AnimatedDataDto? animated,
   }) {
     return builder(BoxSpecAttribute(
