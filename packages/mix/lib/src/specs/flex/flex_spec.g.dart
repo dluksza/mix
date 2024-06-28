@@ -274,7 +274,7 @@ base class FlexSpecUtility<T extends Attribute>
   late final animated = AnimatedUtility((v) => only(animated: v));
 
   /// Utility for defining [FlexSpecAttribute.modifiers]
-  late final modifiers = ModifierUtility((v) => only(modifiers: v));
+  late final modifiers = SpecModifierUtility((v) => only(modifiers: v));
 
   FlexSpecUtility(super.builder);
 

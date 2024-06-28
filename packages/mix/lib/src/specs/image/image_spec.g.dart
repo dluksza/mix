@@ -265,7 +265,7 @@ base class ImageSpecUtility<T extends Attribute>
   late final animated = AnimatedUtility((v) => only(animated: v));
 
   /// Utility for defining [ImageSpecAttribute.modifiers]
-  late final modifiers = ModifierUtility((v) => only(modifiers: v));
+  late final modifiers = SpecModifierUtility((v) => only(modifiers: v));
 
   ImageSpecUtility(super.builder);
 
