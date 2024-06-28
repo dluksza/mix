@@ -98,7 +98,7 @@ class FlexSpecWidget extends StatelessWidget {
 
     return spec == null
         ? flexWidget
-        : RenderInlineModifiers(
+        : RenderSpecModifiers(
             orderOfModifiers: orderOfModifiers,
             spec: spec!,
             child: flexWidget,
