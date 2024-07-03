@@ -40,7 +40,9 @@ scripts:
     steps: 
       - dart pub global activate custom_lint
       - melos exec --depends-on="mix_lint" custom_lint
-
+  mix_exports:
+    run: melos exec --scope="packages/mix" dart run ./scripts/exports.dart
+    description: Generate exports for the mix package
   analyze:
     steps: 
       - melos exec --category="mix_deps" dart analyze --fatal-infos .
